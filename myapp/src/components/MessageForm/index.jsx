@@ -1,5 +1,5 @@
 import './style.scss';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function MessageForm({onSubmit}){
         const [value, setValue] = useState('');

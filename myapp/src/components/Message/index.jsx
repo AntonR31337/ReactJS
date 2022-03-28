@@ -1,24 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.scss';
 import MessageList from '../MessageList';
 import MessageForm from '../MessageForm';
 
 const name = "Antonio"
 
-let msgs = [
-    {
-        author: name,
-        text: 'If you want to change smt - start do it now!'
-    },
-    {
-        author: name,
-        text: 'But its not sure...'
-    },
-    {
-        author: name,
-        text: 'Smt else ...'
-    }
-]
+let msgs = [];
 
 export default function Message({ text }) {
     const [messages, setMessages] = useState(msgs);
