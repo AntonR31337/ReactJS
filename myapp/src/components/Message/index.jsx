@@ -23,9 +23,8 @@ let msgs = [
 export default function Message({ text }) {
     const [messages, setMessages] = useState(msgs);
 
-    const addMessage = () => {
-        // setMessages()
-        
+    const addMessage = (newText) => {
+        setMessages([...messages, {author: name, text: newText}])
     };
 
     return (
@@ -34,7 +33,7 @@ export default function Message({ text }) {
             {messages.map((msg) => 
                 <MessageList author={msg.author} text={msg.text}/>
             )}
-            <MessageForm />
+            <MessageForm onSubmit={addMessage}/>
         </div>
     );
 }

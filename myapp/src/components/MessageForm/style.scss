@@ -1,0 +1,13 @@
+.MessageForm{
+    background-color: aliceblue;
+    margin: 30px 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+        &__text{
+            padding: 10px;
+        }
+        &__btn{
+            text-transform: uppercase;
+        }
+}

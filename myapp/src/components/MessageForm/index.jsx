@@ -1,9 +1,24 @@
-export default function MessageForm(){
+import './style.scss';
+import { useState } from "react";
+
+export default function MessageForm({onSubmit}){
+        const [value, setValue] = useState('');
+
+        const presOnSubmit = (event) => {
+            event.preventDefault();
+
+            onSubmit(value);
+            setValue('');
+        };
+
+        const changeText = (event) => {
+            setValue(event.target.value);
+        };
+    
     return (
-        <form action="#">
-            <button onClick={()=>{}}>Add message</button>
+        <form className="MessageForm" onSubmit={presOnSubmit}>
+            <input className='MessageForm__text' value={value} onChange={changeText} type="text" name="" id="" />
+            <input className="MessageForm__btn" type="submit" value="Add message" />
         </form>
     )
-}
-
-// stoped 1:35 lesson 2
+};
