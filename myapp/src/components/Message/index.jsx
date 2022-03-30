@@ -14,6 +14,16 @@ export default function Message({ text }) {
         setMessages([...messages, {author: name, text: newText}])
     };
 
+    useEffect(() => {
+        let timeOut;
+        if (messages.length && messages[messages.length -1].author === name){
+            timeOut = setTimeout(()=>{
+                setMessages([...messages, {author: "Robot", text: "Сообщение проверено роботом"}])
+            }, 3000)
+        }
+        return () => clearTimeout(timeOut);
+    }, [messages])
+
     return (
         <div className="Message">
             <h1>{text}</h1>
