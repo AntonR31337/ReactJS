@@ -1,10 +1,11 @@
-import './style.scss'
+import './style.scss';
+import {Avatar} from "@mui/material";
 
-export default function MessageList({ author, text }) {
+export default function MessageList({id, author, text }) {
     return (
         <div className="MessageItem">
-            <span className='MessageItem__author'>{author}</span>
-            <q className='MessageItem__text'>{text}</q>
+            <Avatar title={author} sx={{ margin: "10px", color: "red", backgroundColor: "#61dafb"}} >{author[0]}</Avatar>
+            <q className='MessageItem__text'>{text}{id}</q>
         </div>
     );
 }

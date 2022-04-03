@@ -1,5 +1,6 @@
 import './style.scss';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import {Button, TextField} from "@mui/material"
 
 export default function MessageForm({onSubmit}){
         const [value, setValue] = useState('');
@@ -14,11 +15,17 @@ export default function MessageForm({onSubmit}){
         const changeText = (event) => {
             setValue(event.target.value);
         };
+
+        const focusedRef = useRef();
+
+        useEffect(()=> {
+            focusedRef.current?.focus();
+        })
     
     return (
         <form className="MessageForm" onSubmit={presOnSubmit}>
-            <input className='MessageForm__text' value={value} onChange={changeText} type="text" name="" id="" />
-            <input className="MessageForm__btn" type="submit" value="Add message" />
+            <TextField id="outlined-basic" variant="outlined" value={value} onChange={changeText} type="text" ref={focusedRef}/>
+            <Button variant="outlined" type="submit">Add message</Button>
         </form>
     )
 };
