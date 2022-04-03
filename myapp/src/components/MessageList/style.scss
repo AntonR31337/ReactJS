@@ -1,0 +1,17 @@
+.MessageItem{
+    background-color: aliceblue;
+    margin: 30px 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+        &__author{
+            color: black;
+            margin-left: 15px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        &__text{
+            margin: 0 10px;
+        }
+}

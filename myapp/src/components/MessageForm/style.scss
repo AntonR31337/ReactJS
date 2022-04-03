@@ -1,0 +1,18 @@
+.MessageForm{
+    background-color: aliceblue;
+    margin: 30px 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+        &__text{
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        &__btn{
+            text-transform: uppercase;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+}
