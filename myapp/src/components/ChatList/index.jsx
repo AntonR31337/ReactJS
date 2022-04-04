@@ -1,21 +1,27 @@
 import * as React from 'react';
+import { Link, Outlet } from "react-router-dom"
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import {Avatar} from '@mui/material/';
+import { Avatar } from '@mui/material/';
 
-export default function ChatList({data}) {
+export default function ChatList({ data }) {
     return (
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
             {data.map((chat) => {
                 return (
-                    <ListItem key={chat.id} alignItems="flex-start" sx={{borderTop: "solid 1px"}}>
-                        <ListItemAvatar>
-                            <Avatar alt={chat.name} src="/static/images/avatar/1.jpg" />
-                        </ListItemAvatar>
-                        <ListItemText primary={chat.name} />
-                    </ListItem>
+                    <>
+                        <Link key={chat.id} to={`/chat${chat.id}`}>
+                            <ListItem alignItems="flex-start" sx={{ borderTop: "solid 1px" }}>
+                                <ListItemAvatar>
+                                    <Avatar alt={chat.name} src="/static/images/avatar/1.jpg" />
+                                </ListItemAvatar>
+                                <ListItemText primary={chat.name} />
+                            </ListItem>
+                        </Link>
+                        <Outlet />
+                    </>
                 )
             })}
         </List>
