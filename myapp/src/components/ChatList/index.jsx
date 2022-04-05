@@ -12,7 +12,7 @@ export default function ChatList({ data }) {
             {data.map((chat) => {
                 return (
                     <>
-                        <Link key={chat.id} to={`/chat${chat.id}`}>
+                        <Link key={chat.id} to={`/chats/chat${chat.id}`}>
                             <ListItem alignItems="flex-start" sx={{ borderTop: "solid 1px" }}>
                                 <ListItemAvatar>
                                     <Avatar alt={chat.name} src="/static/images/avatar/1.jpg" />
