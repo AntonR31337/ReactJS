@@ -4,9 +4,9 @@ import Messages from './screens/Messages';
 import {BrowserRouter, Routes, Route, Link} from "react-router-dom"
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import MessageList from './components/MessageList';
-import ChatList from './components/ChatList';
 import Message from './components/Message';
+import ChatList from './components/ChatList';
+import MessageList from './components/MessageList';
 import Profile from './components/Profile/Profile';
 
 const Home = () => {
@@ -37,8 +37,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/chats" element={<Message />} >
-          <Route path=":id" element={<MessageList />} />
+        <Route path="/chats" element={<MessageList />} >
+          <Route path=":id" element={<Message />} />
         </Route>
       </Routes>
     </BrowserRouter>
