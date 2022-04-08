@@ -2,29 +2,28 @@ import React, { useEffect, useState } from 'react';
 import './style.scss';
 import Message from '../Message';
 import MessageForm from '../MessageForm';
-import ChatList from '../ChatList';
 
 const name = "Antonio"
 
 let msgs = [];
-let chats = [
-    {
-        id: "1",
-        name: "Antonio"
-    },
-    {
-        id: "2",
-        name: "Tomas"
-    },
-    {
-        id: "3",
-        name: "Angelina"
-    },
-    {
-        id: "4",
-        name: "Brandy"
-    }
-];
+// let chats = [
+//     {
+//         id: "1",
+//         name: "Antonio"
+//     },
+//     {
+//         id: "2",
+//         name: "Tomas"
+//     },
+//     {
+//         id: "3",
+//         name: "Angelina"
+//     },
+//     {
+//         id: "4",
+//         name: "Brandy"
+//     }
+// ];
 
 export default function MessageList({ text }) {
     const [messages, setMessages] = useState(msgs);
@@ -51,7 +50,6 @@ export default function MessageList({ text }) {
         <div className="Message">
             <h1>{text}</h1>
             <div id='MessageDisplay'>
-                <ChatList data={chats} />
                 <div className="MessageList">
                     {messages.map((msg) =>
                         <Message key={msg.id} author={msg.author} text={msg.text} />

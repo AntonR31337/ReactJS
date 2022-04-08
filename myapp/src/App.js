@@ -37,9 +37,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/chats" element={<MessageList />} >
-          <Route path=":id" element={<Message />} />
+        <Route path="/chats" element={<ChatList />} >
+          <Route path=":id" element={<MessageList />} />
         </Route>
+        <Route path="*" element={<h1>404</h1>} />
       </Routes>
     </BrowserRouter>
   );
