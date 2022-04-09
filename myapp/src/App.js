@@ -1,10 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import Messages from './screens/Messages';
 import {BrowserRouter, Routes, Route, Link} from "react-router-dom"
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import Message from './components/Message';
+import Testing from './components/Testing';
 import ChatList from './components/ChatList';
 import MessageList from './components/MessageList';
 import Profile from './components/Profile/Profile';
@@ -33,6 +32,9 @@ function App() {
         <Button>
           <Link to="/profile">Profile</ Link>  
         </Button>
+        <Button>
+          <Link to="/testing">Testing</ Link>  
+        </Button>
     </ButtonGroup>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -40,6 +42,7 @@ function App() {
         <Route path="/chats" element={<ChatList />} >
           <Route path=":id" element={<MessageList />} />
         </Route>
+        <Route path="/testing" element={<Testing />} />
         <Route path="*" element={<h1>404</h1>} />
       </Routes>
     </BrowserRouter>
