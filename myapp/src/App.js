@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 import {BrowserRouter, Routes, Route, Link, NavLink} from "react-router-dom"
 import { Provider } from "react-redux";
 
@@ -16,6 +18,30 @@ import { store } from "./store";
 import logo from './logo.svg';
 import './App.css';
 
+let initialChats = [
+  {
+      id: "1",
+      name: "Antonio"
+  },
+  {
+      id: "2",
+      name: "Tomas"
+  },
+  {
+      id: "3",
+      name: "Angelina"
+  },
+  {
+      id: "4",
+      name: "Brandy"
+  }
+];
+
+const initialMessages = initialChats.reduce((acc, chat) => {
+  acc[chat.id] = [];
+  return acc;
+}, {});
+
 const Home = () => {
   return (
     <div className="App">
@@ -28,6 +54,10 @@ const Home = () => {
 };
 
 function App() {
+
+  const [chats, setChats] = useState(initialChats);
+  const [messsages, setMessages] = useState(initialMessages);
+
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -51,8 +81,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/chats" element={<ChatList />} >
-            <Route path=":id" element={<MessageList />} />
+          <Route path="/chats" element={<ChatList chats={chats} />} >
+            <Route path=":id" element={<MessageList messsages={messsages} />} />
           </Route>
           <Route path="/testing" element={<Testing />} />
           <Route path="*" element={<h1>404</h1>} />

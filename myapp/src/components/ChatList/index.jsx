@@ -6,26 +6,8 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import { Avatar } from '@mui/material/';
 import { Link, Outlet } from 'react-router-dom';
 
-let chats = [
-    {
-        id: "1",
-        name: "Antonio"
-    },
-    {
-        id: "2",
-        name: "Tomas"
-    },
-    {
-        id: "3",
-        name: "Angelina"
-    },
-    {
-        id: "4",
-        name: "Brandy"
-    }
-];
+export default function ChatList({ chats }) {
 
-export default function ChatList() {
     return (
         <>
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>

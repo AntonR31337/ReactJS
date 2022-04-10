@@ -2,30 +2,15 @@ import React, { useEffect, useState } from 'react';
 import './style.scss';
 import Message from '../Message';
 import MessageForm from '../MessageForm';
+import { useParams } from 'react-router';
 
 const name = "Antonio"
 
 let msgs = [];
-// let chats = [
-//     {
-//         id: "1",
-//         name: "Antonio"
-//     },
-//     {
-//         id: "2",
-//         name: "Tomas"
-//     },
-//     {
-//         id: "3",
-//         name: "Angelina"
-//     },
-//     {
-//         id: "4",
-//         name: "Brandy"
-//     }
-// ];
 
 export default function MessageList({ text }) {
+    const { id } = useParams();
+
     const [messages, setMessages] = useState(msgs);
 
     const addMessage = (newText) => {
@@ -33,15 +18,21 @@ export default function MessageList({ text }) {
             author: name,
             text: newText,
             id: `msg-${Date.now()}`
-        }])
+        }
+        ])
+        console.log(messages);
     };
 
     useEffect(() => {
         let timeOut;
         if (messages.length && messages[messages.length - 1].author === name) {
             timeOut = setTimeout(() => {
-                setMessages([...messages, { author: "Robot", text: "Сообщение проверено роботом", id: `msg-${Date.now()}` }])
-            }, 3000)
+                setMessages([...messages, {
+                    author: "Robot",
+                    text: "Сообщение проверено роботом",
+                    id: `msg-${Date.now()}`
+                }])
+            }, 1000)
         }
         return () => clearTimeout(timeOut);
     }, [messages])
