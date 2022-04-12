@@ -6,16 +6,19 @@ import { useParams } from 'react-router';
 
 const name = "Antonio"
 
-// let msgs = [];
-
 export default function MessageList({ text }) {
     const { id } = useParams();
 
-    const [messages, setMessages] = useState({});
+    const [messages, setMessages] = useState([]);
 
     const addMessage = (newText) => {
         debugger
-        setMessages({ ...messages, [id]: [...messages[id], newText] });
+        setMessages({ ...messages, [id]: [...messages[id], {
+            author: name,
+            text: newText,
+            id: `msg-${Date.now()}`
+        }],
+     });
     };
 
     // const addMessage = (newText) => {
@@ -46,11 +49,11 @@ export default function MessageList({ text }) {
         <div className="Message">
             <h1>{text}</h1>
             <div id='MessageDisplay'>
-                {/* <div className="MessageList">
-                    {messages.map((msg) =>
+                <div className="MessageList">
+                    {messages[id]?.map((msg) =>
                         <Message key={msg.id} author={msg.author} text={msg.text} />
                     )}
-                </div> */}
+                </div>
             </div>
             <MessageForm onSubmit={addMessage} />
         </div>
