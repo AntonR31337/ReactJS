@@ -39,7 +39,7 @@ let initialChats = [
 ];
 
 const initialMessages = initialChats.reduce((acc, chat) => {
-  acc[chat.id] = [];
+  acc[`chat${chat.id}`] = [];
   return acc;
 }, {});
 
@@ -57,7 +57,7 @@ const Home = () => {
 function App() {
 
   const [chats, setChats] = useState(initialChats);
-  const [messsages, setMessages] = useState(initialMessages);
+  const [messages, setMessages] = useState(initialMessages);
 
   return (
     <Provider store={store}>
@@ -83,7 +83,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/chats" element={<ChatList chats={chats} />} >
-            <Route path=":id" element={<MessageList messsages={messsages} />} />
+            <Route path=":id" element={<MessageList />} />
           </Route>
           <Route path="/testing" element={<Testing />} />
           <Route path="*" element={<h1>404</h1>} />
