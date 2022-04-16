@@ -12,7 +12,7 @@ export default function Profile(){
     const handleClick = () => {
         dispatch(toggleCheckbox)
     };
-    console.log(state);
+
     return (
         <div className="App">
                 <h1>Profile {state.showName && state.name}</h1>

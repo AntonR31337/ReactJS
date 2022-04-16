@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -6,8 +7,32 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import { Avatar } from '@mui/material/';
 import { Link, Outlet } from 'react-router-dom';
 
-export default function ChatList({ chats }) {
+import { useDispatch, useSelector } from "react-redux";
+import MessageForm from '../MessageForm';
+import { selectChats } from "../../store/chats/selectors";
+import { addChat } from '../../store/chats/actions';
+import { clearMessages, initMessagesForChat } from '../../store/messages/actions';
 
+export default function ChatList() {
+    
+    const chats = useSelector(selectChats);
+    const dispatch = useDispatch();
+
+    const presOnSubmit = (newChatName)=> {
+        const newChat = {
+            id: Date.now().toString(),
+            name: newChatName
+        };
+        
+        dispatch(addChat(newChat));
+        dispatch(initMessagesForChat(newChat.id));
+    };
+
+    const deleteChat = (id) => {
+        dispatch(deleteChat(id));
+        dispatch(clearMessages(id));
+      };
+    
     return (
         <>
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
@@ -20,10 +45,15 @@ export default function ChatList({ chats }) {
                             <Link key={chat.id} to={`/chats/chat${chat.id}`}>
                                 <ListItemText primary={chat.name} />
                             </Link>
-                            <button onClick={()=> console.log(chat.id)}>x</button>
+                            <div className='chatItemButtons'>
+                                <button onClick={()=> deleteChat(chat.id)}>x</button>
+                            </div>
                         </ListItem>
                 )
             })}
+
+            <MessageForm textBtn={"add chat"} onSubmit={presOnSubmit} />
+            
         </List>
         <Outlet />
         </>

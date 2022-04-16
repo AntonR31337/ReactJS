@@ -1,58 +1,51 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import './style.scss';
 import Message from '../Message';
 import MessageForm from '../MessageForm';
-import { useParams } from 'react-router';
+import { Navigate, useParams } from 'react-router';
+import { selectMessagesByChatId } from '../../store/messages/selectors';
+import { addMessageWithReply } from '../../store/messages/actions';
 
 const name = "Antonio"
 
 export default function MessageList() {
 
-    const initMessages = {
-        chat1: [],
-        chat2: [],
-        chat3: [],
-        chat4: [],
-    }
     const { id } = useParams();
 
-    const [messages, setMessages] = useState(initMessages);
+    const getMessages = useMemo(() => selectMessagesByChatId(id), [id]);
+    const messages = useSelector(getMessages);
+    const dispatch = useDispatch();
 
     const addMessage = (newText) => {
-
-        setMessages({ ...messages, [id]: [...messages[id], {
-            author: name,
-            text: newText,
-            id: `msg-${Date.now()}`
-        }],
-     });
+        dispatch(
+            addMessageWithReply(
+              {
+                author: name,
+                newText,
+                id: `msg-${Date.now()}`,
+              },
+              id
+            )
+          );
     };
 
-    useEffect(() => {
-        let timeOut;
-        if (messages[id].length && messages[id][messages[id].length - 1].author === name) {
-            timeOut = setTimeout(() => {
-                setMessages({...messages, [id]: [...messages[id], {
-                    author: "Robot",
-                    text: "Сообщение проверено роботом",
-                    id: `msg-${Date.now()}`
-                }]})
-            }, 1000)
-        }
-        return () => clearTimeout(timeOut);
-    }, [messages])
+    // не работат роутинг на страницу чатов, если чат удалён
+    // if (!messages[id]) {
+    //     return <Navigate to="/chats" replace />
+    // }
 
     return (
         <div className="Message">
             <h1>{"text"}</h1>
             <div id='MessageDisplay'>
                 <div className="MessageList">
-                    {messages[id].map((msg) =>
+                    {messages.map((msg) =>
                         <Message key={msg.id} author={msg.author} text={msg.text} />
                     )}
                 </div>
             </div>
-            <MessageForm onSubmit={addMessage} />
+            <MessageForm textBtn={"Add Message"} onSubmit={addMessage} />
         </div>
     );
 }
