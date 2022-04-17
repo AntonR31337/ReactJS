@@ -34,7 +34,7 @@ export const addMessageWithReply = (newMsg, chatId) => (dispatch, getState) => {
         addMessage(
           {
             author: "Robot",
-            text: "hello friend",
+            newText: "Hello friend",
             id: `msg-${Date.now()}`,
           },
           chatId
