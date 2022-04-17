@@ -21,6 +21,7 @@ const initialState = [
 ];
 
 export const chatsReducer = (state = initialState, {type, payload}) => {
+    debugger
     switch (type) {
         case ADD_CHAT: {
             return [...state, payload];

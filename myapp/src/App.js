@@ -15,57 +15,7 @@ import isActiveTogle from "./utils/isAcriveTogle.js"
 import './App.css';
 import { Home } from "./screens/Home";
 
-// let initialChats = [
-//   {
-//       id: "1",
-//       name: "Antonio"
-//   },
-//   {
-//       id: "2",
-//       name: "Tomas"
-//   },
-//   {
-//       id: "3",
-//       name: "Angelina"
-//   },
-//   {
-//       id: "4",
-//       name: "Brandy"
-//   }
-// ];
-
-// const initialMessages = initialChats.reduce((acc, chat) => {
-//   acc[`chat${chat.id}`] = [];
-//   return acc;
-// }, {});
-
-// const Home = () => {
-//   return (
-//     <div className="App">
-//         <header className="App-header">
-//           <img src={logo} className="App-logo" alt="logo" />
-//           <h1>Home Page</h1>
-//         </header>
-//       </div>
-//   );
-// };
-
 function App() {
-
-  // const [chats, setChats] = useState(initialChats);
-  // const chats = useSelector(state => state.chats);
-  // const dispatch = useDispatch();
-
-  // const [messages, setMessages] = useState(initialMessages);
-
-  // const removeChat = (id) => {
-  //   dispatch(deleteChat(id))
-  // };
-
-  // const addNewChat = (newChatUser)=> {
-  //   dispatch(addChat(newChatUser));
-  //   setMessages((prevMessages)=> ({ ...prevMessages, [newChatUser.id]: [] }));
-  // }
 
   return (
       <BrowserRouter>

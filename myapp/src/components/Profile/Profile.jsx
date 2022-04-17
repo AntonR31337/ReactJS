@@ -15,7 +15,7 @@ export default function Profile(){
 
     return (
         <div className="App">
-                <h1>Profile {state.showName && state.name}</h1>
+                <h1>Profile {state.profile.showName && state.profile.name}</h1>
                 <Stack direction="row" spacing={2}>
                     <Avatar
                     alt={state.name}
