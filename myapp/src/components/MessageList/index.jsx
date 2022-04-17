@@ -4,8 +4,8 @@ import './style.scss';
 import Message from '../Message';
 import MessageForm from '../MessageForm';
 import { Navigate, useParams } from 'react-router';
-import { selectMessagesByChatId } from '../../store/messages/selectors';
-import { addMessageWithReply } from '../../store/messages/actions';
+import { selectMessages, selectMessagesByChatId } from '../../store/messages/selectors';
+import { addMessage, addMessageWithReply } from '../../store/messages/actions';
 
 const name = "Antonio"
 
@@ -13,13 +13,15 @@ export default function MessageList() {
 
     const { id } = useParams();
 
-    const getMessages = useMemo(() => selectMessagesByChatId(id), [id]);
-    const messages = useSelector(getMessages);
+    // const getMessages = useMemo(() => selectMessagesByChatId(id), [id]);
+    const getMessages = selectMessagesByChatId(id);
+    // const messages = useSelector(getMessages);
+    const messages = useSelector(selectMessages)
     const dispatch = useDispatch();
-    debugger
-    const addMessage = (newText) => {
+    
+    const addNewMessage = (newText) => {
         dispatch(
-            addMessageWithReply(
+            addMessage(
               {
                 author: name,
                 newText,
@@ -41,11 +43,11 @@ export default function MessageList() {
             <div id='MessageDisplay'>
                 <div className="MessageList">
                     {messages[id].map((msg) =>
-                        <Message key={msg.id} author={msg.author} text={msg.text} />
+                        <Message key={msg.id} author={msg.author} text={msg.newText} />
                     )}
                 </div>
             </div>
-            <MessageForm textBtn={"Add Message"} onSubmit={addMessage} />
+            <MessageForm textBtn={"Add Message"} onSubmit={addNewMessage} />
         </div>
     );
 }

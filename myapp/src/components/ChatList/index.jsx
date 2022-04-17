@@ -7,15 +7,15 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import { Avatar } from '@mui/material/';
 import { Link, Outlet } from 'react-router-dom';
 
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import MessageForm from '../MessageForm';
 import { selectChats } from "../../store/chats/selectors";
-import { addChat } from '../../store/chats/actions';
+import { addChat, deleteChat } from '../../store/chats/actions';
 import { clearMessages, initMessagesForChat } from '../../store/messages/actions';
 
 export default function ChatList() {
     
-    const chats = useSelector(selectChats);
+    const chats = useSelector(selectChats, shallowEqual);
     const dispatch = useDispatch();
 
     const presOnSubmit = (newChatName)=> {
@@ -28,7 +28,7 @@ export default function ChatList() {
         dispatch(initMessagesForChat(newChat.id));
     };
 
-    const deleteChat = (id) => {
+    const removeChat = (id) => {
         dispatch(deleteChat(id));
         dispatch(clearMessages(id));
       };
@@ -46,7 +46,7 @@ export default function ChatList() {
                                 <ListItemText primary={chat.name} />
                             </Link>
                             <div className='chatItemButtons'>
-                                <button onClick={()=> deleteChat(chat.id)}>x</button>
+                                <button onClick={()=> removeChat(chat.id)}>x</button>
                             </div>
                         </ListItem>
                 )

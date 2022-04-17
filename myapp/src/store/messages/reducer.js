@@ -4,12 +4,16 @@ import {
   INIT_MESSAGES_FOR_CHAT,
 } from "./actions";
 
-const initialState = {};
+const initialState = {
+  chat1: [],
+  chat2: [],
+  chat3: [],
+  chat4: [],
+};
 
 export const messagesReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ADD_MESSAGE: {
-      debugger
       return {
         ...state,
         [payload.chatId]: [...state[payload.chatId], payload.newMsg],
