@@ -1,13 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-import Messages from './screens/Messages';
-import {BrowserRouter, Routes, Route, Link} from "react-router-dom"
+import {BrowserRouter, Routes, Route, Link, NavLink} from "react-router-dom"
+import { Provider } from "react-redux";
+
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import Message from './components/Message';
+
 import ChatList from './components/ChatList';
+import Testing from './components/Testing';
 import MessageList from './components/MessageList';
 import Profile from './components/Profile/Profile';
+
+import isActiveTogle from "./utils/isAcriveTogle.js"
+
+import { store } from "./store";
+
+import logo from './logo.svg';
+import './App.css';
 
 const Home = () => {
   return (
@@ -22,27 +29,36 @@ const Home = () => {
 
 function App() {
   return (
-    <BrowserRouter>
-      <ButtonGroup variant="contained" aria-label="outlined primary button group">
-        <Button>
-          <Link to="/">Home</Link>
-        </Button>
-        <Button>
-          <Link to="/chats" >Chats</Link>
-        </Button>
-        <Button>
-          <Link to="/profile">Profile</ Link>  
-        </Button>
-    </ButtonGroup>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/chats" element={<ChatList />} >
-          <Route path=":id" element={<MessageList />} />
-        </Route>
-        <Route path="*" element={<h1>404</h1>} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ButtonGroup variant="contained" aria-label="outlined primary button group">
+          <Button>
+            <Link to="/">Home</Link>
+          </Button>
+          <Button>
+            <Link to="/chats" >Chats</Link>
+          </Button>
+          <Button>
+            <Link to="/profile">Profile</ Link>  
+          </Button>
+          <Button>
+            <NavLink 
+              to="/testing"
+              style={isActiveTogle}
+              >Testing</ NavLink>  
+          </Button>
+      </ButtonGroup>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/chats" element={<ChatList />} >
+            <Route path=":id" element={<MessageList />} />
+          </Route>
+          <Route path="/testing" element={<Testing />} />
+          <Route path="*" element={<h1>404</h1>} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
