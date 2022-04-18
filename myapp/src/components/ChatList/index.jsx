@@ -42,7 +42,7 @@ export default function ChatList() {
                             <ListItemAvatar>
                                 <Avatar alt={chat.name} src="/static/images/avatar/1.jpg" />
                             </ListItemAvatar>
-                            <Link key={chat.id} to={`/chats/chat${chat.id}`}>
+                            <Link key={chat.id} to={`/chats/${chat.id}`}>
                                 <ListItemText primary={chat.name} />
                             </Link>
                             <div className='chatItemButtons'>

@@ -5,10 +5,11 @@ import {
 } from "./actions";
 
 const initialState = {
-  chat1: [],
-  chat2: [],
-  chat3: [],
-  chat4: [],
+  
+  1: [],
+  2: [],
+  3: [],
+  4: [],
 };
 
 export const messagesReducer = (state = initialState, { type, payload }) => {
