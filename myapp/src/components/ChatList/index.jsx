@@ -12,6 +12,7 @@ import MessageForm from '../MessageForm';
 import { selectChats } from "../../store/chats/selectors";
 import { addChat, deleteChat } from '../../store/chats/actions';
 import { clearMessages, initMessagesForChat } from '../../store/messages/actions';
+import "./style.scss";
 
 export default function ChatList() {
     
@@ -34,7 +35,7 @@ export default function ChatList() {
       };
     
     return (
-        <>
+        <div className='chatsWindow'>
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
             {chats.map((chat) => {
                 return (
@@ -56,6 +57,6 @@ export default function ChatList() {
             
         </List>
         <Outlet />
-        </>
+        </div>
     )
 }

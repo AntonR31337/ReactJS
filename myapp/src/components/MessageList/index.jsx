@@ -14,14 +14,14 @@ export default function MessageList() {
     const { id } = useParams();
 
     const getMessages = useMemo(() => selectMessagesByChatId(id), [id]);
-    // const getMessages = selectMessagesByChatId(id);
+
     const messages = useSelector(getMessages);
-    // const messages = useSelector(selectMessages)
+
     const dispatch = useDispatch();
     
     const addNewMessage = (newText) => {
         dispatch(
-            addMessage(
+            addMessageWithReply(
               {
                 author: name,
                 newText,
