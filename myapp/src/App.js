@@ -14,6 +14,7 @@ import isActiveTogle from "./utils/isAcriveTogle.js"
 
 import './App.css';
 import { Home } from "./screens/Home";
+import { Cards } from "./screens/Cards";
 
 function App() {
 
@@ -25,6 +26,9 @@ function App() {
           </Button>
           <Button>
             <Link to="/chats" >Chats</Link>
+          </Button>
+          <Button>
+            <Link to="/cards" >Cards</Link>
           </Button>
           <Button>
             <Link to="/profile">Profile</ Link>  
@@ -44,6 +48,7 @@ function App() {
               path=":id" 
               element={<MessageList />} />
           </Route>
+          <Route path="/cards" element={<Cards />} />
           <Route path="/testing" element={<Testing />} />
           <Route path="*" element={<h1>404</h1>} />
         </Routes>
