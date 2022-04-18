@@ -15,7 +15,8 @@ export default function MessageList() {
 
     const getMessages = useMemo(() => selectMessagesByChatId(id), [id]);
 
-    const messages = useSelector(selectMessages)
+    const messages = useSelector(getMessages);
+
     const dispatch = useDispatch();
     
     const addNewMessage = (newText) => {
@@ -32,7 +33,7 @@ export default function MessageList() {
     };
 
     // не работат роутинг на страницу чатов, если чат удалён
-    if (!messages[id]) {
+    if (!messages) {
         return <Navigate to="/chats" replace />
     }
 
@@ -41,7 +42,7 @@ export default function MessageList() {
             <h1>{"text"}</h1>
             <div id='MessageDisplay'>
                 <div className="MessageList">
-                    {messages[id].map((msg) =>
+                    {messages.map((msg) =>
                         <Message key={msg.id} author={msg.author} text={msg.newText} />
                     )}
                 </div>
