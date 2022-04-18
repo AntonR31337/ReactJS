@@ -2,7 +2,7 @@ import './style.scss';
 import { useState, useEffect, useRef } from "react";
 import {Button, TextField} from "@mui/material"
 
-export default function MessageForm({onSubmit}){
+export default function MessageForm({onSubmit, textBtn}){
         const [value, setValue] = useState('');
 
         const presOnSubmit = (event) => {
@@ -25,7 +25,7 @@ export default function MessageForm({onSubmit}){
     return (
         <form className="MessageForm" onSubmit={presOnSubmit}>
             <TextField id="outlined-basic" variant="outlined" value={value} onChange={changeText} type="text" ref={focusedRef}/>
-            <Button variant="outlined" type="submit">Add message</Button>
+            <Button variant="outlined" type="submit">{textBtn}</Button>
         </form>
     )
 };

@@ -1,62 +1,53 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import './style.scss';
 import Message from '../Message';
 import MessageForm from '../MessageForm';
+import { Navigate, useParams } from 'react-router';
+import { selectMessages, selectMessagesByChatId } from '../../store/messages/selectors';
+import { addMessage, addMessageWithReply } from '../../store/messages/actions';
 
 const name = "Antonio"
 
-let msgs = [];
-// let chats = [
-//     {
-//         id: "1",
-//         name: "Antonio"
-//     },
-//     {
-//         id: "2",
-//         name: "Tomas"
-//     },
-//     {
-//         id: "3",
-//         name: "Angelina"
-//     },
-//     {
-//         id: "4",
-//         name: "Brandy"
-//     }
-// ];
+export default function MessageList() {
 
-export default function MessageList({ text }) {
-    const [messages, setMessages] = useState(msgs);
+    const { id } = useParams();
 
-    const addMessage = (newText) => {
-        setMessages([...messages, {
-            author: name,
-            text: newText,
-            id: `msg-${Date.now()}`
-        }])
+    const getMessages = useMemo(() => selectMessagesByChatId(id), [id]);
+    // const getMessages = selectMessagesByChatId(id);
+    const messages = useSelector(getMessages);
+    // const messages = useSelector(selectMessages)
+    const dispatch = useDispatch();
+    
+    const addNewMessage = (newText) => {
+        dispatch(
+            addMessage(
+              {
+                author: name,
+                newText,
+                id: `msg-${Date.now()}`,
+              },
+              id
+            )
+          );
     };
 
-    useEffect(() => {
-        let timeOut;
-        if (messages.length && messages[messages.length - 1].author === name) {
-            timeOut = setTimeout(() => {
-                setMessages([...messages, { author: "Robot", text: "Сообщение проверено роботом", id: `msg-${Date.now()}` }])
-            }, 3000)
-        }
-        return () => clearTimeout(timeOut);
-    }, [messages])
+    // не работат роутинг на страницу чатов, если чат удалён
+    if (!messages) {
+        return <Navigate to="/chats" replace />
+    }
 
     return (
         <div className="Message">
-            <h1>{text}</h1>
+            <h1>{"text"}</h1>
             <div id='MessageDisplay'>
                 <div className="MessageList">
                     {messages.map((msg) =>
-                        <Message key={msg.id} author={msg.author} text={msg.text} />
+                        <Message key={msg.id} author={msg.author} text={msg.newText} />
                     )}
                 </div>
             </div>
-            <MessageForm onSubmit={addMessage} />
+            <MessageForm textBtn={"Add Message"} onSubmit={addNewMessage} />
         </div>
     );
 }

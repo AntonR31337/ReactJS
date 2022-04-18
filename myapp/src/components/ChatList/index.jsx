@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -6,26 +7,32 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import { Avatar } from '@mui/material/';
 import { Link, Outlet } from 'react-router-dom';
 
-let chats = [
-    {
-        id: "1",
-        name: "Antonio"
-    },
-    {
-        id: "2",
-        name: "Tomas"
-    },
-    {
-        id: "3",
-        name: "Angelina"
-    },
-    {
-        id: "4",
-        name: "Brandy"
-    }
-];
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import MessageForm from '../MessageForm';
+import { selectChats } from "../../store/chats/selectors";
+import { addChat, deleteChat } from '../../store/chats/actions';
+import { clearMessages, initMessagesForChat } from '../../store/messages/actions';
 
 export default function ChatList() {
+    
+    const chats = useSelector(selectChats, shallowEqual);
+    const dispatch = useDispatch();
+
+    const presOnSubmit = (newChatName)=> {
+        const newChat = {
+            id: Date.now().toString(),
+            name: newChatName
+        };
+        
+        dispatch(addChat(newChat));
+        dispatch(initMessagesForChat(newChat.id));
+    };
+
+    const removeChat = (id) => {
+        dispatch(deleteChat(id));
+        dispatch(clearMessages(id));
+      };
+    
     return (
         <>
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
@@ -35,13 +42,18 @@ export default function ChatList() {
                             <ListItemAvatar>
                                 <Avatar alt={chat.name} src="/static/images/avatar/1.jpg" />
                             </ListItemAvatar>
-                            <Link key={chat.id} to={`/chats/chat${chat.id}`}>
+                            <Link key={chat.id} to={`/chats/${chat.id}`}>
                                 <ListItemText primary={chat.name} />
                             </Link>
-                            <button onClick={()=> console.log(chat.id)}>x</button>
+                            <div className='chatItemButtons'>
+                                <button onClick={()=> removeChat(chat.id)}>x</button>
+                            </div>
                         </ListItem>
                 )
             })}
+
+            <MessageForm textBtn={"add chat"} onSubmit={presOnSubmit} />
+            
         </List>
         <Outlet />
         </>

@@ -1,5 +1,6 @@
+import React, { useState } from "react";
+
 import {BrowserRouter, Routes, Route, Link, NavLink} from "react-router-dom"
-import { Provider } from "react-redux";
 
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -11,25 +12,12 @@ import Profile from './components/Profile/Profile';
 
 import isActiveTogle from "./utils/isAcriveTogle.js"
 
-import { store } from "./store";
-
-import logo from './logo.svg';
 import './App.css';
-
-const Home = () => {
-  return (
-    <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1>Home Page</h1>
-        </header>
-      </div>
-  );
-};
+import { Home } from "./screens/Home";
 
 function App() {
+
   return (
-    <Provider store={store}>
       <BrowserRouter>
         <ButtonGroup variant="contained" aria-label="outlined primary button group">
           <Button>
@@ -52,13 +40,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/chats" element={<ChatList />} >
-            <Route path=":id" element={<MessageList />} />
+            <Route 
+              path=":id" 
+              element={<MessageList />} />
           </Route>
           <Route path="/testing" element={<Testing />} />
           <Route path="*" element={<h1>404</h1>} />
         </Routes>
       </BrowserRouter>
-    </Provider>
   );
 }
 
