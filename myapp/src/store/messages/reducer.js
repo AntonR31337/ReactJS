@@ -5,7 +5,6 @@ import {
 } from "./actions";
 
 const initialState = {
-  
   1: [],
   2: [],
   3: [],
