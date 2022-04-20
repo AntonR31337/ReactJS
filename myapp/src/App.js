@@ -15,8 +15,20 @@ import isActiveTogle from "./utils/isAcriveTogle.js"
 import './App.css';
 import { Home } from "./screens/Home";
 import { Cards } from "./screens/Cards";
+import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
+import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 
 function App() {
+
+  const [authed, setAuthed] = useState(false);
+  const handleLogin = () => {
+    setAuthed(true);
+    console.log('login')
+  };
+  const handleLogout = () => {
+    setAuthed(false);
+    console.log('logout')
+  };
 
   return (
       <BrowserRouter>
@@ -41,8 +53,12 @@ function App() {
           </Button>
       </ButtonGroup>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/" element={<PublicRoute authed={authed} />}>
+            <Route path="" element={<Home onAuth={handleLogin} />} />
+          </Route>
+          <Route path="/profile" element={<PrivateRoute authed={authed} />} >
+            <Route path="" element={<Profile onLogout={handleLogout} />} />
+          </Route>
           <Route path="/chats" element={<ChatList />} >
             <Route 
               path=":id" 

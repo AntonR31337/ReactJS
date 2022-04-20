@@ -6,7 +6,7 @@ import { toggleCheckbox } from "../../store/profile/actions"
 import img from "./avatar.jpeg";
 import './style.scss';
 
-export default function Profile(){
+export default function Profile({ onLogout }){
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
     const handleClick = () => {
@@ -24,6 +24,8 @@ export default function Profile(){
                     />
                 </Stack>
                 <button onClick={handleClick}>Show name</button>
+                <hr />
+                <button onClick={onLogout}>LogOut</button>
       </div>
     );
 }
