@@ -1,17 +1,19 @@
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { useDispatch, useSelector } from "react-redux";
+import { logOut } from '../../services/firebase';
 import { toggleCheckbox } from "../../store/profile/actions"
 
 import img from "./avatar.jpeg";
 import './style.scss';
 
-export default function Profile({ onLogout }){
+export default function Profile({ userName }){
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
     const handleClick = () => {
         dispatch(toggleCheckbox)
     };
+
 
     return (
         <div className="App">
@@ -25,7 +27,7 @@ export default function Profile({ onLogout }){
                 </Stack>
                 <button onClick={handleClick}>Show name</button>
                 <hr />
-                <button onClick={onLogout}>LogOut</button>
+                <button onClick={logOut}>LogOut</button>
       </div>
     );
 }

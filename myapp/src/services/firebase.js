@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { async } from "@firebase/util";
+// import { async } from "@firebase/util";
 import { initializeApp } from "firebase/app";
 import { 
     getAuth,
@@ -31,6 +31,7 @@ export const signUp = async (email, pass) => {
 
 export const logIn = async (email, pass) => {
     signInWithEmailAndPassword(auth, email, pass);
+    console.log(auth);
 };
 
 export const logOut = async () => {

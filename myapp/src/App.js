@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {BrowserRouter, Routes, Route, Link, NavLink} from "react-router-dom"
 
@@ -17,6 +17,8 @@ import { Home } from "./screens/Home";
 import { Cards } from "./screens/Cards";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./services/firebase";
 
 function App() {
 
@@ -29,6 +31,17 @@ function App() {
     setAuthed(false);
     console.log('logout')
   };
+
+  useEffect(()=> {
+    const unsubscribe = onAuthStateChanged(auth, (user)=> {
+      if (user) {
+        handleLogin();
+      } else {
+        handleLogout();
+      }
+    });
+    return unsubscribe;
+  }, []);
 
   return (
       <BrowserRouter>
@@ -55,9 +68,10 @@ function App() {
         <Routes>
           <Route path="/" element={<PublicRoute authed={authed} />}>
             <Route path="" element={<Home onAuth={handleLogin} />} />
+            <Route path="/signup" element={<Home onAuth={handleLogin} isSignUp />} />
           </Route>
           <Route path="/profile" element={<PrivateRoute authed={authed} />} >
-            <Route path="" element={<Profile onLogout={handleLogout} />} />
+            <Route path="" element={<Profile onLogout={handleLogout} userName={auth} />} />
           </Route>
           <Route path="/chats" element={<ChatList />} >
             <Route 
@@ -73,3 +87,6 @@ function App() {
 }
 
 export default App;
+
+
+// остановился на 42 минуте 9 урока
