@@ -71,7 +71,7 @@ function App() {
             <Route path="/signup" element={<Home onAuth={handleLogin} isSignUp />} />
           </Route>
           <Route path="/profile" element={<PrivateRoute authed={authed} />} >
-            <Route path="" element={<Profile onLogout={handleLogout} userName={auth} />} />
+            <Route path="" element={<Profile onLogout={handleLogout} />} />
           </Route>
           <Route path="/chats" element={<ChatList />} >
             <Route 
