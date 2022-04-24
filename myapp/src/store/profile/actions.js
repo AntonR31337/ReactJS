@@ -11,7 +11,7 @@ let unsubscribe;
 
 export const initProfilerTrack = ()=> (dispatch)=> {  
   debugger
-  const unsubscribeShowName = onValue(userShowNameRef, (snapshot)=>{
+  const unsubscribeShowName = onValue(userShowNameRef, ()=>{
     dispatch(toggleCheckbox);
 });
 unsubscribe = () => {
