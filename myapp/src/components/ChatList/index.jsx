@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -13,10 +13,13 @@ import { selectChats } from "../../store/chats/selectors";
 import { addChat, deleteChat } from '../../store/chats/actions';
 import { clearMessages, initMessagesForChat } from '../../store/messages/actions';
 import "./style.scss";
+import { chatsRef, getChatRefById, getMsgsRefById } from '../../services/firebase';
+import { onValue, remove, set } from 'firebase/database';
 
 export default function ChatList() {
     
-    const chats = useSelector(selectChats, shallowEqual);
+    // const chats = useSelector(selectChats, shallowEqual);
+    const [chats, setChats] = useState([]);
     const dispatch = useDispatch();
 
     const presOnSubmit = (newChatName)=> {
@@ -25,14 +28,22 @@ export default function ChatList() {
             name: newChatName
         };
         
-        dispatch(addChat(newChat));
-        dispatch(initMessagesForChat(newChat.id));
+        // dispatch(addChat(newChat));
+        set(getChatRefById(newChat.id), newChat);
+        set(getMsgsRefById(newChat.id), { exists: true } );
     };
 
     const removeChat = (id) => {
-        dispatch(deleteChat(id));
-        dispatch(clearMessages(id));
+        remove(getChatRefById(id));
+        remove(getMsgsRefById(id));
       };
+
+      useEffect(()=>{
+        const unsubscribe = onValue(chatsRef, (snapshot)=>{
+            console.log(snapshot.val());
+            setChats(Object.values(snapshot.val() || {} ));
+        });
+    }, []);
     
     return (
         <div className='chatsWindow'>
