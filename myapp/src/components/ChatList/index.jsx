@@ -40,7 +40,6 @@ export default function ChatList() {
 
       useEffect(()=>{
         const unsubscribe = onValue(chatsRef, (snapshot)=>{
-            console.log(snapshot.val());
             setChats(Object.values(snapshot.val() || {} ));
         });
     }, []);

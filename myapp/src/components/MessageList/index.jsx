@@ -31,7 +31,6 @@ export default function MessageList() {
             if (!snapshot.val()?.exists) {
                 setMessages(null);
             } else {
-                console.log(val.messageList);
                 setMessages(Object.values(val.messageList || {}));
             }
         });
