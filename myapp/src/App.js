@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {BrowserRouter, Routes, Route, Link, NavLink} from "react-router-dom"
 
@@ -15,8 +15,33 @@ import isActiveTogle from "./utils/isAcriveTogle.js"
 import './App.css';
 import { Home } from "./screens/Home";
 import { Cards } from "./screens/Cards";
+import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
+import { PublicRoute } from "./components/PublicRoute/PublicRoute";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./services/firebase";
 
 function App() {
+
+  const [authed, setAuthed] = useState(false);
+  const handleLogin = () => {
+    setAuthed(true);
+    console.log('login')
+  };
+  const handleLogout = () => {
+    setAuthed(false);
+    console.log('logout')
+  };
+
+  useEffect(()=> {
+    const unsubscribe = onAuthStateChanged(auth, (user)=> {
+      if (user) {
+        handleLogin();
+      } else {
+        handleLogout();
+      }
+    });
+    return unsubscribe;
+  }, []);
 
   return (
       <BrowserRouter>
@@ -41,8 +66,13 @@ function App() {
           </Button>
       </ButtonGroup>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/" element={<PublicRoute authed={authed} />}>
+            <Route path="" element={<Home onAuth={handleLogin} />} />
+            <Route path="/signup" element={<Home onAuth={handleLogin} isSignUp />} />
+          </Route>
+          <Route path="/profile" element={<PrivateRoute authed={authed} />} >
+            <Route path="" element={<Profile onLogout={handleLogout} />} />
+          </Route>
           <Route path="/chats" element={<ChatList />} >
             <Route 
               path=":id" 
@@ -57,3 +87,6 @@ function App() {
 }
 
 export default App;
+
+
+// остановился на 42 минуте 9 урока
